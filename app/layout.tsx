@@ -29,6 +29,34 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+
+        {/* Add the chatbot CSS style */}
+        <style>
+          {`
+              #dify-chatbot-bubble-button {
+                background-color: #1C64F2 !important;
+              }
+            `}
+        </style>
+
+        {/* Add chatbot configuration script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.difyChatbotConfig = {
+                  token: '${process.env.NEXT_PUBLIC_DIFY_CHATBOT_TOKEN}',
+                  baseUrl: '${process.env.NEXT_PUBLIC_DIFY_CHATBOT_BASE_URL}'
+                }
+              `,
+          }}
+        />
+
+        {/* Add chatbot embed script */}
+        <script
+          src={`${process.env.NEXT_PUBLIC_DIFY_CHATBOT_BASE_URL}/embed.min.js`}
+          id={process.env.NEXT_PUBLIC_DIFY_CHATBOT_TOKEN}
+          defer
+        />
       </body>
     </html>
   );
